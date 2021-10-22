@@ -7,7 +7,7 @@ function toTimestamp(str){
 
  function toDateString(str)
  {
-    let strDate = new Date(parseInt(str));
+    let strDate = new Date(str*1);
     let cDay = strDate.getDate();
     let cMonth = strDate.getMonth() + 1;
     let cYear = strDate.getFullYear();
