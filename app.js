@@ -21,7 +21,7 @@ app.get('/api', (req,res) => {
     let unix, utc;
 
     let utcdate = datec.returnUTCforNow();
-    utc = datec.returnUTC(utcdate);
+    utc = datec.returnUTC(utcdate,true);
     // cDay,cMonth,cYear,cHours,cMinutes,cSeconds
     let temp = [utcdate[2], utcdate[1], utcdate[0], utcdate[3], utcdate[4], utcdate[5]]
     // year, monthIndex, day, hours, minutes, seconds, milliseconds
@@ -37,26 +37,35 @@ app.get('/api', (req,res) => {
 });
 
 app.get('/api/:date', (req,res) => {
+    asyncToCalc(req,res);
+});
+ 
+async function asyncToCalc(req,res){
     let date = req.params.date;
     let unix,utc;
-    if(date.includes('/'))
+    if(date.includes('-'))
     {
-        let dateArr = date.split('/');
-        if(dateArr.length < 3){
+        let dateArr = [];
+        dateArr = date.split('-');
+        dateArr = dateArr.reverse();
+        console.log(dateArr);
+        if(dateArr.length != 3){
             res.json(errorobject);
         }
-        dateArr.join(00);
-        dateArr.join(00);
-        dateArr.join(00);
+        dateArr.push(00);
+        dateArr.push(00);
+        dateArr.push(00);
         dateArr.forEach((elem,index,arr) => {
             arr[index] = parseInt(elem);
         });
-        utc = datec.returnUTC(dateArr);
+        console.log(dateArr);
+        utc = datec.returnUTC(dateArr,false);
         unix = unixc.toTimestamp(utc.substring(6,26));
     }
     else{
         unix = parseInt(date);
-        utc = unixc.toDateString(date);
+        console.log(date);
+        utc = unixc.toDateString(date,false);
     }
     let ans = {
         "unix" : unix,
@@ -65,7 +74,7 @@ app.get('/api/:date', (req,res) => {
 
     console.log(ans);
     res.json(ans);
-});
+}
 
 app.listen(port, () => {
     console.log("Listening on :" + port);

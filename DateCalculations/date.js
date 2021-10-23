@@ -16,18 +16,30 @@ let returnUTCforNow = () =>
 
     return [cDay,cMonth,cYear,cHours,cMinutes,cSeconds];
 }
-
-let returnUTC = function([cDay,cMonth,cYear,cHours,cMinutes,cSeconds]){
+// [cDay,cMonth,cYear,cHours,cMinutes,cSeconds]
+let returnUTC = function(arr,convert){
     let currentDate = new Date();
+
+    let cDay = arr[0];
+    let cMonth = arr[1];
+    let cYear = arr[2];
+    let cHours = arr[3];
+    let cMinutes = arr[4];
+    let cSeconds = arr[5];
 
     var dateStr = cMonth.toString() + "/" + cDay.toString() + "/" + cYear.toString();
     var dayName = getDayName(dateStr, "en-US");
 
-
-    let timeInMinutes = cHours*60 + cMinutes;
-    timeInMinutes = timeInMinutes + currentDate.getTimezoneOffset();
-    cHours = parseInt(timeInMinutes/60);
-    cMinutes = timeInMinutes - cHours*60;
+    if(convert)
+    {
+        console.log(convert);
+        let timeInMinutes = cHours*60 + cMinutes;
+        console.log(timeInMinutes);
+        timeInMinutes = timeInMinutes + currentDate.getTimezoneOffset();
+        cHours = parseInt(timeInMinutes/60);
+        cMinutes = timeInMinutes - cHours*60;
+    }
+    
     
     cHours = completeTime(cHours);
     cMinutes = completeTime(cMinutes);
