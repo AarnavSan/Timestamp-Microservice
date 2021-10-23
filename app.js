@@ -42,6 +42,7 @@ app.get('/api/:date', (req,res) => {
 });
  
 async function asyncToCalc(req,res){
+    console.log(req.params);
     let date = req.params.date;
     let unix,utc;
     if(date.includes('-'))

@@ -48,7 +48,6 @@ let returnUTC = function(arr,convert){
     let utcDate = dayName.substring(0,3) + ", " + cDay + " " + returnMonth(cMonth).substring(0,3) + " " + cYear + " " + cHours + ":" 
     + cMinutes + ":" + cSeconds + " GMT";
 
-    console.log(utcDate);
     return utcDate;
 }
 

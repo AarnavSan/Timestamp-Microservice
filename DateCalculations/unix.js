@@ -1,7 +1,6 @@
 const datec = require("./date");
 function toTimestamp(str){
     var datum = new Date(str);
-    console.log(datum);
     return datum.getTime();
  }
 
