@@ -19,6 +19,7 @@ app.get('/', (req, res) => {
 
 
 app.get('/api', (req,res) => {
+    console.log(req.params);
     let unix, utc;
 
     let utcdate = datec.returnUTCforNow();
