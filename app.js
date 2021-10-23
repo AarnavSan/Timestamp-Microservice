@@ -17,7 +17,7 @@ app.get('/', (req, res) => {
 })
 
 
-app.get('/api', (req,res) => {
+app.get('/api/timestamp', (req,res) => {
     let unix, utc;
 
     let utcdate = datec.returnUTCforNow();
@@ -29,14 +29,14 @@ app.get('/api', (req,res) => {
     console.log(temp);
 
     let ans = {
-        "unix": unix,
-        "utc": utc
+        unix: unix,
+        utc: utc
     }
     console.log(ans);   
     res.json(ans);
 });
 
-app.get('/api/:date', (req,res) => {
+app.get('/api/timestamp/:date', (req,res) => {
     asyncToCalc(req,res);
 });
  
@@ -68,8 +68,8 @@ async function asyncToCalc(req,res){
         utc = unixc.toDateString(date,false);
     }
     let ans = {
-        "unix" : unix,
-        "utc" : utc
+        unix : unix,
+        utc : utc
     }
 
     console.log(ans);
