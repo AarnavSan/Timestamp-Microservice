@@ -27,7 +27,6 @@ app.get('/api', (req,res) => {
     let temp = [utcdate[2], utcdate[1], utcdate[0], utcdate[3], utcdate[4], utcdate[5]]
     // year, monthIndex, day, hours, minutes, seconds, milliseconds
     unix = unixc.toTimestamp(utc.substring(6,26));
-    console.log(temp);
 
     let ans = {
         unix: unix,
@@ -50,7 +49,6 @@ async function asyncToCalc(req,res){
         let dateArr = [];
         dateArr = date.split('-');
         dateArr = dateArr.reverse();
-        console.log(dateArr);
         if(dateArr.length != 3){
             res.json(errorobject);
         }
@@ -67,13 +65,11 @@ async function asyncToCalc(req,res){
         dateArr.forEach((elem,index,arr) => {
             arr[index] = parseInt(elem);
         });
-        console.log(dateArr);
         utc = datec.returnUTC(dateArr,false);
         unix = unixc.toTimestamp(utc.substring(6,26));
     }
     else if(reg.test(date)){
         unix = parseInt(date);
-        console.log(date);
         utc = unixc.toDateString(date,false);
     }
     else{
