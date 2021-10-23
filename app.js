@@ -6,8 +6,9 @@ const { returnUTC } = require('./DateCalculations/date');
 const datec = require('./DateCalculations/date');
 const unixc = require('./DateCalculations/unix');
 
-const errorobject = {"error" : "Invalid Date"};
+const errorobject = {error : "Invalid Date"};
 var port = process.env.PORT || 3000;
+var reg = /^\d+$/;
 
 app.use(express.static(path.join(__dirname, 'static')));
 app.use(express.static(__dirname + '/static/stylesheets'));
@@ -52,6 +53,13 @@ async function asyncToCalc(req,res){
         if(dateArr.length != 3){
             res.json(errorobject);
         }
+        for(let i =0; i < 3; i++)
+        {
+            if(reg.test(dateArr[i]) == false)
+            {
+                res.json(errorobject);
+            }
+        }
         dateArr.push(00);
         dateArr.push(00);
         dateArr.push(00);
@@ -62,16 +70,18 @@ async function asyncToCalc(req,res){
         utc = datec.returnUTC(dateArr,false);
         unix = unixc.toTimestamp(utc.substring(6,26));
     }
-    else{
+    else if(reg.test(date)){
         unix = parseInt(date);
         console.log(date);
         utc = unixc.toDateString(date,false);
+    }
+    else{
+        res.json(errorobject);
     }
     let ans = {
         unix : unix,
         utc : utc
     }
-
     console.log(ans);
     res.json(ans);
 }
